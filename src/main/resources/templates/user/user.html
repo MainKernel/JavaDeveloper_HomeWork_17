@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+<a href="/"><button>Home page</button></a>
+<a href="/user"><button>Notes list</button></a>
+<a href="/logout"><button>Logout</button></a>
+<br>
+<br/>
+<div class="container">
+    <h1>Note List</h1>
+    <a class="bnt btn-create" th:href="@{/user/note/create}">
+        <button>Create note</button>
+    </a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="note : ${notes}">
+            <td th:text="${note.title}">Note Title</td>
+            <td th:text="${note.content}">Note Content</td>
+
+            <td>
+                <a class="btn btn-primary" th:href="@{/user/note/edit(id=${note.id})}">
+                    <button>Edit</button>
+                </a>
+
+                <form method="post" th:action="@{/user/note/delete(id=${note.id})}">
+                    <input type="hidden" name="id" th:value="${note.id}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
